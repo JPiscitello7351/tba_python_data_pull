@@ -41,8 +41,8 @@ with tbaapiv3client.ApiClient(configuration) as api_client:
             if (x.comp_level == "qm"):
                 matchList.append(
                              [x.comp_level, x.match_number,
-                              x.alliances.red.team_keys[0],x.alliances.red.team_keys[1],x.alliances.red.team_keys[2],
-                              x.alliances.blue.team_keys[0],x.alliances.blue.team_keys[1],x.alliances.blue.team_keys[2],
+                              x.alliances.red.team_keys[0][3:],x.alliances.red.team_keys[1][3:],x.alliances.red.team_keys[2][3:],
+                              x.alliances.blue.team_keys[0][3:],x.alliances.blue.team_keys[1][3:],x.alliances.blue.team_keys[2][3:],
                               x.score_breakdown['red']['autoLineRobot1'],
                               x.score_breakdown['red']['autoLineRobot2'],
                               x.score_breakdown['red']['autoLineRobot3'],
@@ -56,9 +56,38 @@ with tbaapiv3client.ApiClient(configuration) as api_client:
                               x.score_breakdown['blue']['endGameRobot2'],
                               x.score_breakdown['blue']['endGameRobot3'],
                               x.score_breakdown['red']['endGameHarmonyPoints'],
-                              x.score_breakdown['blue']['endGameHarmonyPoints']
+                              x.score_breakdown['blue']['endGameHarmonyPoints'],
+                              0, 0, 0,
+                              0, 0, 0
                               ])
 
+        for m in matchList:
+            b1 = m[14]
+            b2 = m[15]
+            b3 = m[16]
+            r1 = m[17]
+            r2 = m[18]
+            r3 = m[19]
+
+            if(b1 == b2 and "Stage" in b1):
+                m[22] = 1
+                m[23] = 1
+            if(b1 == b3 and "Stage" in b1):
+                m[22] = 1
+                m[24] = 1
+            if(b2 == b3 and "Stage" in b2):
+                m[24] = 1
+                m[23] = 1
+
+            if(r1 == r2 and "Stage" in r1):
+                m[25] = 1
+                m[26] = 1
+            if(r1 == r3 and "Stage" in r1):
+                m[25] = 1
+                m[27] = 1
+            if(r2 == r3 and "Stage" in r2):
+                m[26] = 1
+                m[27] = 1
 
         #pprint(matchList)
         df = pd.DataFrame(matchList)
