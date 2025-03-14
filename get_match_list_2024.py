@@ -20,7 +20,7 @@ configuration = tbaapiv3client.Configuration(
 configuration = tbaapiv3client.Configuration(
     host = "https://www.thebluealliance.com/api/v3",
     api_key = {
-        'X-TBA-Auth-Key': 'I1MLBtdsFA0kUBlum5sSYUbc3x3NXCYPXBFPhaQ8pezx4jTiflwgCeW2lRlQdiOD'
+        'X-TBA-Auth-Key': ''
     }
 )
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
