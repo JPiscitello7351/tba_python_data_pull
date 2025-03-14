@@ -20,7 +20,7 @@ configuration = tbaapiv3client.Configuration(
 configuration = tbaapiv3client.Configuration(
     host = "https://www.thebluealliance.com/api/v3",
     api_key = {
-        'X-TBA-Auth-Key': 'I1MLBtdsFA0kUBlum5sSYUbc3x3NXCYPXBFPhaQ8pezx4jTiflwgCeW2lRlQdiOD'
+        'X-TBA-Auth-Key': ''
     }
 )
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -32,13 +32,14 @@ with tbaapiv3client.ApiClient(configuration) as api_client:
     api_instance = tbaapiv3client.MatchApi(api_client)
     event_key = '2025mose' # str | TBA Event Key, eg `2016nytr`
     if_modified_since = 'if_modified_since_example' # str | Value of the `Last-Modified` header in the most recently cached response by the client. (optional)
+    last_complete_qual_match = 49
 
     try:
         api_response = api_instance.get_event_matches(event_key)
         #pprint(api_response)
         matchList = []
         for x in api_response:
-            if (x.comp_level == "qm" and x.match_number < 49):
+            if (x.comp_level == "qm" and x.match_number < last_complete_qual_match):
                 matchList.append(
                              [x.comp_level, x.match_number,
                               x.alliances.red.team_keys[0][3:],x.alliances.red.team_keys[1][3:],x.alliances.red.team_keys[2][3:],
